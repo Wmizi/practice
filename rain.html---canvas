@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>rain</title>
+    <style>
+    body{
+        padding: 0;
+        margin: 0
+        }
+        canvas{
+            display: block;
+            background: #090909;
+
+        }
+    </style>
+</head>
+<body>
+    <canvas class="rain"></canvas>
+    <script>
+        var oCanvas=document.querySelector(".rain");
+        var w,h;
+        var aRain=[]//存放新生成的所有小雨滴
+
+        ~~function setSize(){
+        window.onresize=arguments.callee;//函数自定义，为了避免函数耦合度太高，也可以写setSize，指的是函数本身，arguments是给函数传参，放进一个数组中
+        w=window.innerWidth;
+        h=window.innerHeight;
+        oCanvas.width=w;
+        oCanvas.height=h; 
+        }()
+        //~~function()立执行函数
+        var canCon=oCanvas.getContext("2d");
+        function random(min,max){
+        return Math.random()*(max-min)+min;//返回0-1之间的数
+        }
+        function Rain(){};//构造函数，第一个字母大写。雨滴的DNA
+        Rain.prototype={
+        init:function(){//DNA的基本基因
+        this.x=random(0,w);//新生成雨滴的新位置，从最左边到最右边。
+        this.y=0;//新生成的雨滴的新Y位置，从浏览器最上面开始
+        this.w=2;
+        this.h=10;//无论什么时候程序都不要写死。
+        this.color="#3ff";  
+        this.vy=random(2,3);//雨滴下降的速度
+        this.height=random(0.8*h,0.9*h);//雨滴滴落的高度
+        this.r=0;//变成水珠的初始半径大小     如果将雨滴的半径改为0，就可以构造雨滴下落消失情况
+        this.maxR=random(25,90);
+        },
+        draw:function(){
+            if(this.y<this.height){
+                canCon.fillStyle="rgba(0,0,0,0.005)";//调整雨滴的透明度
+                canCon.fillRect (0,0,w,h);
+                canCon.fillStyle=this.color;
+                canCon.fillRect(this.x,this.y,this.w,this.h);
+            }else{
+                canCon.beginPath();
+                canCon.strokeStyle=this.color;
+                canCon.arc(this.x,this.y,this.r,0,Math.PI*2);
+                canCon.stroke();
+            }
+        },
+         move:function(){
+            if(this.y<this.height){
+                this.y+=this.vy;
+            }
+            else{
+                if(this.r<this.maxR){
+                    this.r++;
+                }else{
+                    this.init();//雨滴重新再来过
+                }             
+            }       
+            this.draw();
+
+        }
+    }
+//var rain=new Rain();根据雨滴的DNA创造新的雨滴
+
+    function createRain(num,time){
+        for(var i=0;i<num;i++){
+            setTimeout(function(){
+            var rain=new Rain();
+            rain.init();
+            rain.draw();
+            aRain.push(rain);//push后面需要一个相关的值
+            },time*i);//在t毫秒之后执行函数
+            }
+        }
+
+    createRain(50,1000);
+
+    setInterval(function(){
+        canCon.fillStyle="rgba(0,0,0,0.06)";
+        canCon.fillRect (0,0,w,h);
+            for(var item of aRain){//item变量代表数组里的每一个元素
+                item.move();
+            }
+    },1000/60);
+</script>    
+</body>
+</html>
