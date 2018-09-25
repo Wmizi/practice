@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>京东轮播图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            user-select: none;
+        }
+        .banner{
+            position: relative;
+            width: 590px;
+            height: 470px;
+            margin: 50px auto;
+        }
+        .ban-image{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .ban-image img{
+            opacity: 0;
+            width: 590px;
+            height: 470px;
+            position: absolute;
+            transition: 1s;
+        }
+        .ban-image img.on{
+            opacity: 1;
+        }
+        .btn-left, .btn-right{
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            background-color: rgba(0,0, 0, 0.5);
+            font-size: 24px;
+            text-align: center;
+            line-height: 60px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .btn-left{
+            left: 0;
+        }
+        .btn-right{
+            right: 0;
+        }
+        .tab{
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .tab li{
+            float: left;
+            list-style: none;
+            width: 14px;
+            height: 14px;
+            margin-right: 8px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+        .tab li.on{
+            background-color: #f70;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="banner">    <!-- 容器 -->
+        <div class="ban-image">  <!-- 图片模块 -->
+            <img class="on" src="./img/1.jpg" alt=""/>
+            <img src="./img/2.jpg" alt=" "/>
+            <img src="./img/3.jpg" alt=" "/>
+            <img src="./img/4.jpg" alt=" "/>
+            <img src="./img/5.jpg" alt=" "/>
+            <img src="./img/6.jpg" alt=" "/>
+            <img src="./img/7.jpg" alt=" "/>
+            <img src="./img/8.jpg" alt=" "/>
+        </div>
+        <div class="btn">  <!-- 左右按钮 -->
+            <div class="btn-left"> &lt; </div>
+            <div class="btn-right"> &gt; </div>       
+        </div>
+        <div class="tab">  <!-- 底部的圆点按钮 -->
+            <ul>
+                <li class="on"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>       
+        </div>
+    </div>
+    <script>
+        /*
+        避免全局变量污染，全局变量会影响局部变量的值！
+        1、点击右边的按钮，切换图片
+            一 获取右边按钮元素
+            二 发生一次点击事件
+            三 需要一个变量，保存我们的图片下标
+            四 给下一张图片一个类名
+            五 给下标一个类名
+        2、设置样式前，清除之前的样式
+            一 保存上一次对象的下标
+            二 清除上一张图片的类名
+            三 清除上一个tab的类名
+        3、溢出判断
+        */
+        (function() {
+            var oRight = document.querySelector('.btn-right');
+            var oLeft = document.querySelector('.btn-left');
+            var aImages = document.querySelectorAll('.ban-image img')
+            var aTabs = document.querySelectorAll('.tab li')
+            var lastIndex = 0;
+            var index = 0;
+//第一种方法
+            oRight.onclick = function() {                
+                //清除上一次样式  calssList.remove方法，可以判断多个类名
+                aImages[index].className = '';   //清除图片类名
+                aTabs[index].className = '';   //清除tab类名
+                //设置当前样式
+                index++; 
+                if(index >= aImages.length){
+                    index = 0;
+                } 
+                aImages[index].className = 'on'; //给图片设置类名
+                aTabs[index].className = 'on'; //给tab设置类名
+                lastIndex = index;  //当前下标就变成上一任了
+                console.log(aImages);                           
+            }
+            oLeft.onclick = function() {                
+                //清除上一次样式  calssList.remove方法，可以判断多个类名
+                aImages[index].className = '';   //清除图片类名
+                aTabs[index].className = '';   //清除tab类名
+                //设置当前样式
+                index--; 
+                if(index < 0){
+                    index = aImages.length-1;
+                } 
+                aImages[index].className = 'on'; //给图片设置类名
+                aTabs[index].className = 'on'; //给tab设置类名
+                lastIndex = index;  //当前下标就变成上一任下标
+                console.log(aImages);  
+                //left+right完成了静态点击轮播的效果                         
+            }
+//第二种方法：左边按钮和右边按钮的重合度太高，将代码简化。
+oRight.onclick = function(){
+                change(false)
+            };
+            oLeft.onclick = function(){
+                change(true)
+            };
+            function change(bool) {                
+                //清除上一次样式  calssList.remove方法，可以判断多个类名
+                aImages[index].className = '';  
+                aTabs[index].className = '';
+                //设置当前样式
+                if(bool){
+                    index--; 
+                    if(index < 0){
+                        index = aImages.length-1;
+                    }
+                }else{
+                    index++; 
+                    if(index >= aImages.length){
+                        index = 0;
+                } 
+                }               
+                aImages[index].className = 'on';
+                aTabs[index].className = 'on'; 
+                lastIndex = index; 
+                console.log(aImages);   
+            }
+//第三种方法：使用取余的方法，替代if、else方法
+                if(bool){
+                    index--;                    
+                    if(index < 0){
+                       index = aImages.length-1;
+                    } 
+                }else{
+                    index++; 
+                    index %= aImages.length;                      
+                }
+//第四种方法：使用callback，给用户可发挥的空间，并且保证在用户将代码改错时，程序不报错，只有相关功能不能实现
+oRight.onclick = function(){
+                //change中传一个obj 函数，不能让代码报错。
+                change()
+            };
+            oLeft.onclick = function(){
+                change(function() {
+                    index--; 
+                    if(index < 0){
+                       index = aImages.length-1;
+                    }
+                })
+            };
+            function change(callback) {   
+                aImages[index].className = '';  
+                aTabs[index].className = '';                  
+                /* if(callback){
+                    callback();
+                } */ 
+                callback && callback(); //替代if操作符                                   
+                aImages[index].className = 'on'; 
+                aTabs[index].className = 'on'; 
+                lastIndex = index;  
+                console.log(aImages);   
+            }               
+        })();
+    </script>
+</body>
+</html>
