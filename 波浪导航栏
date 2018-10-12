@@ -1,0 +1,119 @@
+<!DOCTYPE html><!--文档类型声明-->
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>波浪侧边栏效果</title>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="pec2.css" /> -->
+    <link type="text/javascript" src="./jquery-3.3.1.min.js" />
+    <style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    #sidebar{
+        width: 134px;
+        right: 0;
+        top: 100px;
+        position: fixed;
+    }
+    .bar-list{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        }
+    .item{
+        position: relative;
+        left: 104px;
+        list-style: none;
+        line-height: 30px;
+        cursor: pointer;
+        border-bottom: 2px solid black;
+        background: rgb(91, 159, 223)
+    }
+    .item:hover .num{
+        background: aquamarine;
+        }
+    .item:hover strong{
+        color: aquamarine;
+    }
+    .num{
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background: brown;
+        text-align: center;
+        font-weight: bold;       
+    }
+    strong{
+        font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <ul class="bar-list">
+            <li class="item">
+                <span class="num">1</span>
+                <strong>HTML5</strong>
+            </li>
+            <li class="item">
+                <span class="num">2</span>
+                <strong>CSS</strong>
+            </li>
+            <li class="item">
+                <span class="num">3</span>
+                <strong>JS</strong>
+            </li>
+            <li class="item">
+                <span class="num">4</span>
+                <strong>PHP</strong>
+            </li>
+            <li class="item">
+                <span class="num">5</span>
+                <strong>PYTHON</strong>
+            </li>
+            <li class="item">
+                <span class="num">6</span>
+                <strong>NODE.JS</strong>
+            </li>
+            <li class="item">
+                <span class="num">7</span>
+                <strong>REACT</strong>
+            </li>
+            <li class="item">
+                <span class="num">8</span>
+                <strong>HTML5</strong>
+            </li>
+            <li class="item">
+                <span class="num">9</span>
+                <strong>JQUREY</strong>
+            </li>
+            <li class="item">
+                <span class="num">10</span>
+                <strong>BOOTSTR</strong>
+            </li>
+        </ul>
+
+    </div>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>         
+         $("#sidebar") .hover(function() {
+            //console.log("come on!")
+            $(".item").each(function(index){
+                setTimeout(function(){
+                    $(this).animate({left:0});
+                }.bind(this), index*50);
+            })
+        },function(){
+            //console.log("come out!")
+            $(".item").each(function(index){
+                setTimeout(function(){
+                    $(this).animate({left:"104px"});
+                }.bind(this), index*50);           
+            });
+        }) 
+        
+    </script>
+</body>
+</html>
