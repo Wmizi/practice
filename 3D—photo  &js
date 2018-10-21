@@ -1,0 +1,42 @@
+ var oSen = document.getElementsByClassName("sence")[0];
+        var aLi = oSen.getElementsByTagName("li");
+        var aliLength = aLi.length;
+        var Deg = 360 /  aliLength;
+        var lastX,lastY, nowX, nowY ,minusX,minusY;
+        var roX = -15, roY = 0; //设置起始倾斜程度
+        console.log(Deg);
+        window.onload = function(){
+            for(var i= 0;i<aliLength;i++){
+                aLi[i].style.transform = 'rotateY('+(i*Deg)+'deg) translateZ(330px)';
+                aLi[i].style.transition = 'transform 1s ' + (aliLength - i - 1)*0.1 + 's';
+            }
+            document.onmousedown = function(ev){
+                //鼠标起始点
+                lastX = ev.clientX;
+                lastY = ev.clientY;
+                //鼠标移动
+                this.onmousemove = function(ev){
+                    //移动目标点
+                    nowX = ev.clientX;
+                    nowY = ev.clientY;
+                    //计算  目标点-起始点的距离
+                    minusX = nowX - lastX;//改变X轴的差值
+                    minusY = nowY - lastY;//改变Y轴的差值
+                    //console.log(minusX);
+                    //在原先盒子的基础上进行累加
+                    roX -= minusY*0.2; //把Y轴的差值给旋转的X轴
+                    roY += minusX*0.1; //把X轴的差值给旋转的Y轴
+                    //console.log(roX);
+                    //先移动盒子
+                    oSen.style.transform = 'rotateX('+roX+'deg) rotateY('+ roY+'deg)'
+                    //更新过去的点（让现在的点now 成为过去移动过的点 让移动变的比较平滑）
+                    lastX = nowX;
+                    lastY = nowY;
+                }
+                this.onmouseup = function(){
+                    this.onmousemove = null;
+
+                }
+                return false;
+            }
+        }
