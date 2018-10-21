@@ -1,0 +1,48 @@
+ *{
+        margin: 0;
+        padding: 0;
+    }
+    ul{
+        list-style-type: none;
+    }
+    body{
+        background-color: black;
+    }
+    #wrap{       
+        perspective: 800px;   /* 设置景深 */
+    }
+    #wrap .sence{ /* 中心场景 ，大小无所谓*/
+        width: 120px;
+        height: 180px;
+        margin: 250px auto;
+        position: relative;
+        border-radius: 10px;
+        transform-style: preserve-3d; /* 3D眼镜 */
+        transform: rotateX(-15deg) rotateY(0);
+    }
+    .sence ul li{
+        position: absolute;
+        box-shadow: 0 0 8px #f9f;
+        border-radius: 5px;
+        transform: rotateY(0deg) translateZ(0px);
+        transition: 1s;
+    }
+    .sence ul li img{
+        vertical-align: middle;
+        width: 150px;
+        height: 200px; 
+        -webkit-box-reflect: below  7px 
+        -webkit-linear-gradient(top, rgba(0,0,0,0) 30% ,rgba(0,0,0,.5) 100%);
+        /* 方位值 间隔 渐变色  */
+    }
+    .sence p{
+        width: 700px;
+        height: 700px;
+        background: -webkit-radial-gradient(center ,350px 350px , rgba(244,23,234,.2), rgba(0,0,0,0));
+        position: absolute;
+        left: 50%;
+        top: 112%;
+        margin-top: -350px;
+        margin-left: -350px;
+        transform: rotateX(90deg);
+    }
