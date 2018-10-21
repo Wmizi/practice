@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>3D</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+</head>
+<body>
+    <div id="wrap">
+        <div class="sence">
+        <ul>
+            <li>
+                <img src="./img/1.jpg"/>
+            </li>
+            <li>
+                <img src="./img/2.jpg"/>
+            </li>
+            <li>
+                <img src="./img/3.jpg"/>
+            </li>
+            <li>
+                <img src="./img/4.jpg"/>
+            </li>
+            <li>
+                <img src="./img/5.jpg"/>
+            </li>
+            <li>
+                <img src="./img/6.jpg"/>
+            </li>
+            <li>
+                <img src="./img/7.jpg"/>
+            </li>
+            <li>
+                <img src="./img/8.jpg"/>
+            </li>
+            <li>
+                <img src="./img/9.jpg"/>
+            </li>
+            <li>
+                <img src="./img/10.jpg"/>
+            </li>
+            <li>
+                <img src="./img/11.jpg"/>
+            </li>
+        </ul>
+        <p></p>
+        </div>
+    </div> 
+
+    <!--
+        HTML + CSS 布局基础
+        js  通过语法DOM操作做操作节点 
+        使用js实现拖拽：
+        鼠标事件结合位移
+
+        思路：
+        一：完善布局
+            1.旋转嫉妒的不同（360）rotateX()
+            2.远离中心点（定值） translateZ
+        二：入场动画
+        11 — — 0
+        10 — — 1
+        ...
+        1 — — 11
+        通过延时实现规律
+        三：
+        使用原生js实现拖拽
+        鼠标事件结合位移操作（left,top,translate）
+        鼠标从起始点移动到目标点的距离对应到整个盒子
+        然后不断的更新过去的值（让动画变得更加圆滑）
+     -->  
+</body>
+</html>
