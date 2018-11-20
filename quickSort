@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>quickSort</title>
+</head>
+<body>
+    <?php
+        function quickSort($left,$right,&$array){
+            $l = $left;
+            $r = $right;
+            $pivot = $array[($left+$right)/2];
+            $temp = 0;
+            while($l<$r){
+                while($array[$l]<$pivot)$l++;
+                while($array[$r]>$pivot)$r--;
+                if($l>=$r)break;
+                $temp = $array[$l];
+                $array[$l]=$array[$r];
+                $array[$r]=$temp;
+                if($array[$l]==$pivot)--$r;
+                if($array[$r]==$pivot)++$l;
+            }
+            if($l==$r){
+                $l++;
+                $r--;
+            }
+            if($left<$r) quickSort($left,$r,$array);
+            if($right>$l) quickSort($l,$right,$array);
+        }
+        quickSort(0,count($myarr)-1,$myarr);
+
+        $myarr = [0,7,9,-5,2.3,21,0.2];
+    
+        print_r($myarr);
+    ?>
+    
+</body>
+</html>
